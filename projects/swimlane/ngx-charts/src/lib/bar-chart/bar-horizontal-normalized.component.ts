@@ -188,7 +188,7 @@ export class BarHorizontalNormalizedComponent extends BaseChartComponent {
   ngOnInit() {
     super.ngOnInit();
     if (isPlatformServer(this.platformId)) {
-      this.isSSR = true;
+      this.isSSR = false // skip;
     }
   }
 

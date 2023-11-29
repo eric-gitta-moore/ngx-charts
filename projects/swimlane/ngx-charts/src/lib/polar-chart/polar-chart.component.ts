@@ -227,7 +227,7 @@ export class PolarChartComponent extends BaseChartComponent implements OnInit {
   ngOnInit() {
     super.ngOnInit();
     if (isPlatformServer(this.platformId)) {
-      this.isSSR = true;
+      this.isSSR = false // skip;
     }
   }
 
