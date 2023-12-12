@@ -1,24 +1,29 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Location, LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { Component, Inject, OnInit, Optional, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import {
+  isPlatformBrowser,
+  isPlatformServer,
+  Location,
+  LocationStrategy,
+  PathLocationStrategy,
+  PlatformLocation
+} from '@angular/common';
 import * as shape from 'd3-shape';
 import * as d3Array from 'd3-array';
 
 import { Color, colorSets } from '@swimlane/ngx-charts/utils/color-sets';
-import { formatLabel, escapeLabel } from '@swimlane/ngx-charts/common/label.helper';
+import { escapeLabel, formatLabel } from '@swimlane/ngx-charts/common/label.helper';
 import {
-  single,
-  multi,
   boxData,
   bubble,
-  sankeyData,
+  fiscalYearReport,
   generateData,
   generateGraph,
-  treemap,
+  multi,
+  sankeyData,
+  single,
   timelineFilterBarData,
-  fiscalYearReport
+  treemap
 } from './data';
-import { bubbleDemoData } from './custom-charts/bubble-chart-interactive/data';
-import { BubbleChartInteractiveServerDataModel } from './custom-charts/bubble-chart-interactive/models';
 import { data as countries } from 'emoji-flags';
 import chartGroups from './chartTypes';
 import { barChart, lineChartSeries } from './combo-chart-data';
@@ -26,6 +31,8 @@ import pkg from '../../projects/swimlane/ngx-charts/package.json';
 // import { InputTypes } from '@swimlane/ngx-ui';
 import { LegendPosition } from '@swimlane/ngx-charts/common/types/legend.model';
 import { ScaleType } from '@swimlane/ngx-charts/common/types/scale-type.enum';
+import { REQUEST } from '@nguniversal/express-engine/tokens';
+import { Request } from 'express';
 
 const monthName = new Intl.DateTimeFormat('en-us', { month: 'short' });
 const weekdayName = new Intl.DateTimeFormat('en-us', { weekday: 'short' });
@@ -46,7 +53,7 @@ const getRandomInt = (min: number, max: number) => {
 
 @Component({
   selector: 'app-root',
-  providers: [Location, { provide: LocationStrategy, useClass: HashLocationStrategy }],
+  providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }],
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['../../node_modules/@swimlane/ngx-ui/index.css', './app.component.scss'],
   templateUrl: './app.component.html'
@@ -245,9 +252,9 @@ export class AppComponent implements OnInit {
   treemapPath: any[] = [];
   sumBy: string = 'Size';
 
-  // bubble chart interactive demo
-  bubbleDemoTempData: any[] = [];
-  bubbleDemoChart: BubbleChartInteractiveServerDataModel;
+  // // bubble chart interactive demo
+  // bubbleDemoTempData: any[] = [];
+  // bubbleDemoChart: BubbleChartInteractiveServerDataModel;
 
   // Reference lines
   showRefLines: boolean = true;
@@ -269,7 +276,12 @@ export class AppComponent implements OnInit {
   dimVisible: boolean = true;
   optsVisible: boolean = true;
 
-  constructor(public location: Location) {
+  constructor(
+    public location: Location,
+    @Inject(PLATFORM_ID) private readonly platform: any,
+    private readonly platformLocation: PlatformLocation,
+    @Inject(REQUEST) @Optional() private readonly request: Request
+  ) {
     this.mathFunction = this.getFunction();
 
     Object.assign(this, {
@@ -283,14 +295,14 @@ export class AppComponent implements OnInit {
       bubble,
       plotData: this.generatePlotData(),
       treemap,
-      bubbleDemoData,
+      // bubbleDemoData,
       fiscalYearReport
     });
 
     // interactive drill down demos
     this.treemapProcess();
-    this.bubbleDemoChart = new BubbleChartInteractiveServerDataModel();
-    this.bubbleDemoProcess(bubbleDemoData[0]);
+    // this.bubbleDemoChart = new BubbleChartInteractiveServerDataModel();
+    // this.bubbleDemoProcess(bubbleDemoData[0]);
 
     this.dateData = generateData(5, false);
     this.dateDataWithRange = generateData(2, true);
@@ -310,10 +322,17 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    const state = this.location.path(true);
+    let state: string = this.platformLocation.pathname + this.platformLocation.hash;
+    if (isPlatformServer(this.platform)) {
+      state = this.request.path;
+    }
+    state = state.slice(1);
+
     this.selectChart(state.length ? state : 'bar-vertical');
 
-    setInterval(this.updateData.bind(this), 1000);
+    if (isPlatformBrowser(this.platform)) {
+      setInterval(this.updateData.bind(this), 1000);
+    }
 
     if (!this.fitContainer) {
       this.applyDimensions();
@@ -461,7 +480,7 @@ export class AppComponent implements OnInit {
       }
 
       // bubble interactive demo
-      this.bubbleDemoProcess(bubbleDemoData[getRandomInt(0, bubbleDemoData.length - 1)]);
+      // this.bubbleDemoProcess(bubbleDemoData[getRandomInt(0, bubbleDemoData.length - 1)]);
 
       this.statusData = this.getStatusData();
 
@@ -495,8 +514,12 @@ export class AppComponent implements OnInit {
   }
 
   selectChart(chartSelector) {
-    this.chartType = chartSelector = chartSelector.replace('/', '');
-    this.location.replaceState(this.chartType);
+    const state: string = (this.platformLocation.pathname + this.platformLocation.hash).slice(1);
+    this.chartType = chartSelector.replaceAll('/', '').replaceAll('#', '');
+    if (isPlatformBrowser(this.platform) && state !== chartSelector) {
+      // this.location.replaceState 会导致不断向后拼接 /bar-vertical-2d -> /bar-vertical-2d/bar-vertical-2d
+      history.replaceState(undefined, undefined, `/${this.chartType}`);
+    }
 
     for (const group of this.chartGroups) {
       this.chart = group.charts.find(x => x.selector === chartSelector);
@@ -795,6 +818,7 @@ export class AppComponent implements OnInit {
   yRightTickFormat(data) {
     return `${data}%`;
   }
+
   /*
   **
   End of Combo Chart
@@ -815,26 +839,26 @@ export class AppComponent implements OnInit {
   **
   */
 
-  bubbleDemoProcess(dataFromServer) {
-    this.bubbleDemoChart.setDataFromServer(dataFromServer);
-    this.bubbleDemoTempData = this.bubbleDemoChart.toChart();
-  }
+  // bubbleDemoProcess(dataFromServer) {
+  //   this.bubbleDemoChart.setDataFromServer(dataFromServer);
+  //   this.bubbleDemoTempData = this.bubbleDemoChart.toChart();
+  // }
+  //
+  // getBubbleInteractiveTitle() {
+  //   return this.bubbleDemoChart.getChartTitle();
+  // }
 
-  getBubbleInteractiveTitle() {
-    return this.bubbleDemoChart.getChartTitle();
-  }
-
-  bubbleShowDrillDownResetLink() {
-    return this.bubbleDemoChart.getDrilldownDepth() > 0;
-  }
-
-  onClickResetBubbleInteractiveDrill() {
-    this.bubbleDemoChart.resetDrilldown();
-    this.bubbleDemoTempData = this.bubbleDemoChart.toChart();
-  }
-
-  onSelectBubbleInteractivePoint(event) {
-    this.bubbleDemoChart.drilldown(event);
-    this.bubbleDemoTempData = this.bubbleDemoChart.toChart();
-  }
+  // bubbleShowDrillDownResetLink() {
+  //   return this.bubbleDemoChart.getDrilldownDepth() > 0;
+  // }
+  //
+  // onClickResetBubbleInteractiveDrill() {
+  //   this.bubbleDemoChart.resetDrilldown();
+  //   this.bubbleDemoTempData = this.bubbleDemoChart.toChart();
+  // }
+  //
+  // onSelectBubbleInteractivePoint(event) {
+  //   this.bubbleDemoChart.drilldown(event);
+  //   this.bubbleDemoTempData = this.bubbleDemoChart.toChart();
+  // }
 }
