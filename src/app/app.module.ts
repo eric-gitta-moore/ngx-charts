@@ -20,7 +20,7 @@ import { BubbleChartInteractiveModule } from './custom-charts/bubble-chart-inter
   ],
   imports: [
     NgxChartsModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     FormsModule,
     NgxUIModule,

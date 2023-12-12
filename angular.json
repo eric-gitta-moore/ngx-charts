@@ -20,13 +20,18 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ngx-charts",
+            "outputPath": "dist/ngx-charts/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
             "scripts": [],
             "allowedCommonJsDependencies": [
               "emoji-flags",
@@ -68,7 +73,8 @@
                   "maximumWarning": "6kb"
                 }
               ]
-            }
+            },
+            "development": {}
           },
           "defaultConfiguration": ""
         },
@@ -96,15 +102,22 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
             "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts"]
+            "lintFilePatterns": [
+              "src/**/*.ts"
+            ]
           }
         },
         "e2e": {
@@ -118,6 +131,66 @@
               "devServerTarget": "ngx-charts:serve:production"
             }
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/ngx-charts/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "optimization": false,
+            "sourceMap": true,
+            "extractLicenses": false
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "sourceMap": false,
+              "extractLicenses": true
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "ngx-charts:build:development",
+              "serverTarget": "ngx-charts:server:development"
+            },
+            "production": {
+              "browserTarget": "ngx-charts:build:production",
+              "serverTarget": "ngx-charts:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ngx-charts:build:production",
+              "serverTarget": "ngx-charts:server:production"
+            },
+            "development": {
+              "browserTarget": "ngx-charts:build:development",
+              "serverTarget": "ngx-charts:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     },
@@ -150,7 +223,9 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["projects/swimlane/ngx-charts/src/**/*.ts"]
+            "lintFilePatterns": [
+              "projects/swimlane/ngx-charts/src/**/*.ts"
+            ]
           }
         }
       }
