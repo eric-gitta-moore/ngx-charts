@@ -13,7 +13,7 @@ import { APP_BASE_HREF } from '@angular/common';
       useFactory: getBaseLocation
     }
   ],
-  imports: [AppModule, BrowserAnimationsModule, BrowserModule.withServerTransition({ appId: 'serverApp' })],
+  imports: [AppModule, BrowserAnimationsModule, BrowserModule],
   bootstrap: [AppComponent]
 })
 export class AppBrowserModule {}

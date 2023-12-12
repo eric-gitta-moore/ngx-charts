@@ -6,17 +6,30 @@ import { TimelineFilterBarChartComponent } from './custom-charts/timeline-filter
 import { NgxChartsModule } from '@swimlane/ngx-charts/ngx-charts.module';
 import { ComboChartComponent, ComboSeriesVerticalComponent } from './custom-charts/combo-chart';
 import { BubbleChartInteractiveModule } from './custom-charts/bubble-chart-interactive';
-import { NgxUIModule } from '@swimlane/ngx-ui';
+// import {
+//   CalendarComponent,
+//   DateTimeComponent,
+//   DialogService,
+//   InputComponent,
+//   NotificationService,
+//   SliderComponent,
+//   TooltipDirective
+// } from '@swimlane/ngx-ui';
 
 @NgModule({
-  imports: [NgxChartsModule, FormsModule, NgxUIModule, BubbleChartInteractiveModule],
+  // providers: [DialogService, NotificationService],
+  imports: [NgxChartsModule, FormsModule, BubbleChartInteractiveModule],
   declarations: [
     AppComponent,
     SparklineComponent,
     TimelineFilterBarChartComponent,
     ComboChartComponent,
-    ComboSeriesVerticalComponent
+    ComboSeriesVerticalComponent,
+    // SliderComponent,
+    // InputComponent,
+    // DateTimeComponent,
+    // CalendarComponent,
+    // TooltipDirective
   ],
-  bootstrap: [AppComponent]
 })
 export class AppModule {}

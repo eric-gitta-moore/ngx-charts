@@ -23,7 +23,7 @@ import { data as countries } from 'emoji-flags';
 import chartGroups from './chartTypes';
 import { barChart, lineChartSeries } from './combo-chart-data';
 import pkg from '../../projects/swimlane/ngx-charts/package.json';
-import { InputTypes } from '@swimlane/ngx-ui';
+// import { InputTypes } from '@swimlane/ngx-ui';
 import { LegendPosition } from '@swimlane/ngx-charts/common/types/legend.model';
 import { ScaleType } from '@swimlane/ngx-charts/common/types/scale-type.enum';
 
@@ -54,7 +54,7 @@ const getRandomInt = (min: number, max: number) => {
 export class AppComponent implements OnInit {
   APP_VERSION = pkg.version;
 
-  inputTypes = InputTypes;
+  // inputTypes = InputTypes;
 
   theme = 'dark';
   chartType: string;

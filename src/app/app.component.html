@@ -728,41 +728,41 @@
         (deactivate)="deactivate($event)"
       >
       </ngx-charts-sankey>
-      <div *ngIf="chartType === 'status-demo'">
-        <ngx-slider
-          [(ngModel)]="salePrice"
-          [step]="100"
-          [filled]="true"
-          [min]="0"
-          [max]="10000"
-          (change)="statusData = calcStatusData()"
-        >
-        </ngx-slider>
-        Price: ${{ salePrice }}
-        <br />
-        <ngx-slider
-          [(ngModel)]="personnelCost"
-          [step]="100"
-          [filled]="true"
-          [min]="0"
-          [max]="10000"
-          (change)="statusData = calcStatusData()"
-        >
-        </ngx-slider>
-        Cost: ${{ personnelCost }} / hr
-        <ngx-charts-number-card
-          class="chart-container"
-          [view]="view"
-          [scheme]="colorScheme"
-          cardColor="#232837"
-          emptyColor="#1e222e"
-          [results]="statusData"
-          [animations]="animations"
-          [valueFormatting]="statusValueFormat"
-          [labelFormatting]="statusLabelFormat"
-        >
-        </ngx-charts-number-card>
-      </div>
+<!--      <div *ngIf="chartType === 'status-demo'">-->
+<!--        <ngx-slider-->
+<!--          [(ngModel)]="salePrice"-->
+<!--          [step]="100"-->
+<!--          [filled]="true"-->
+<!--          [min]="0"-->
+<!--          [max]="10000"-->
+<!--          (change)="statusData = calcStatusData()"-->
+<!--        >-->
+<!--        </ngx-slider>-->
+<!--        Price: ${{ salePrice }}-->
+<!--        <br />-->
+<!--        <ngx-slider-->
+<!--          [(ngModel)]="personnelCost"-->
+<!--          [step]="100"-->
+<!--          [filled]="true"-->
+<!--          [min]="0"-->
+<!--          [max]="10000"-->
+<!--          (change)="statusData = calcStatusData()"-->
+<!--        >-->
+<!--        </ngx-slider>-->
+<!--        Cost: ${{ personnelCost }} / hr-->
+<!--        <ngx-charts-number-card-->
+<!--          class="chart-container"-->
+<!--          [view]="view"-->
+<!--          [scheme]="colorScheme"-->
+<!--          cardColor="#232837"-->
+<!--          emptyColor="#1e222e"-->
+<!--          [results]="statusData"-->
+<!--          [animations]="animations"-->
+<!--          [valueFormatting]="statusValueFormat"-->
+<!--          [labelFormatting]="statusLabelFormat"-->
+<!--        >-->
+<!--        </ngx-charts-number-card>-->
+<!--      </div>-->
       <ngx-charts-gauge
         *ngIf="chartType === 'gauge'"
         class="chart-container"
@@ -804,80 +804,80 @@
         (select)="select($event)"
       >
       </ngx-charts-linear-gauge>
-      <div *ngIf="chartType === 'plot-demo'">
-        <ngx-input
-          [type]="inputTypes.text"
-          [required]="true"
-          [(ngModel)]="mathText"
-          (change)="mathFunction = getFunction(mathText); plotData = generatePlotData()"
-        >
-        </ngx-input>
-        <ngx-charts-line-chart
-          style="position: static; display: inline-block; transform: none"
-          [view]="view"
-          class="chart-container"
-          [scheme]="colorScheme"
-          [schemeType]="schemeType"
-          [results]="plotData"
-          [animations]="animations"
-          [legend]="false"
-          [legendTitle]="legendTitle"
-          [legendPosition]="legendPosition"
-          [gradient]="gradient"
-          [xAxis]="showXAxis"
-          [yAxis]="showYAxis"
-          [showXAxisLabel]="false"
-          [showYAxisLabel]="false"
-          [xAxisLabel]="'angle'"
-          [yAxisLabel]="'radius'"
-          [autoScale]="autoScale"
-          [timeline]="timeline"
-          [showGridLines]="showGridLines"
-          [curve]="curves['Cardinal']"
-          [rangeFillOpacity]="rangeFillOpacity"
-          [roundDomains]="roundDomains"
-          [tooltipDisabled]="tooltipDisabled"
-          [trimXAxisTicks]="trimXAxisTicks"
-          [trimYAxisTicks]="trimYAxisTicks"
-          [maxXAxisTickLength]="maxXAxisTickLength"
-          [maxYAxisTickLength]="maxYAxisTickLength"
-          (select)="select($event)"
-        >
-        </ngx-charts-line-chart>
-        <p></p>
-        <ngx-charts-polar-chart
-          style="position: static; display: inline-block; transform: none"
-          [view]="view"
-          class="chart-container"
-          [scheme]="colorScheme"
-          [schemeType]="schemeType"
-          [results]="plotData"
-          [animations]="animations"
-          [legend]="false"
-          [legendTitle]="legendTitle"
-          [legendPosition]="legendPosition"
-          [gradient]="gradient"
-          [xAxis]="false"
-          [yAxis]="true"
-          [showXAxisLabel]="false"
-          [showYAxisLabel]="false"
-          [xAxisLabel]="'angle'"
-          [yAxisLabel]="'radius'"
-          [autoScale]="autoScale"
-          [showGridLines]="showGridLines"
-          [rangeFillOpacity]="rangeFillOpacity"
-          [roundDomains]="roundDomains"
-          [tooltipDisabled]="tooltipDisabled"
-          [showSeriesOnHover]="showSeriesOnHover"
-          [curve]="curves['Cardinal Closed']"
-          [trimYAxisTicks]="trimYAxisTicks"
-          [maxYAxisTickLength]="maxYAxisTickLength"
-          (select)="select($event)"
-          (activate)="activate($event)"
-          (deactivate)="deactivate($event)"
-        >
-        </ngx-charts-polar-chart>
-      </div>
+<!--      <div *ngIf="chartType === 'plot-demo'">-->
+<!--        <ngx-input-->
+<!--          [type]="inputTypes.text"-->
+<!--          [required]="true"-->
+<!--          [(ngModel)]="mathText"-->
+<!--          (change)="mathFunction = getFunction(mathText); plotData = generatePlotData()"-->
+<!--        >-->
+<!--        </ngx-input>-->
+<!--        <ngx-charts-line-chart-->
+<!--          style="position: static; display: inline-block; transform: none"-->
+<!--          [view]="view"-->
+<!--          class="chart-container"-->
+<!--          [scheme]="colorScheme"-->
+<!--          [schemeType]="schemeType"-->
+<!--          [results]="plotData"-->
+<!--          [animations]="animations"-->
+<!--          [legend]="false"-->
+<!--          [legendTitle]="legendTitle"-->
+<!--          [legendPosition]="legendPosition"-->
+<!--          [gradient]="gradient"-->
+<!--          [xAxis]="showXAxis"-->
+<!--          [yAxis]="showYAxis"-->
+<!--          [showXAxisLabel]="false"-->
+<!--          [showYAxisLabel]="false"-->
+<!--          [xAxisLabel]="'angle'"-->
+<!--          [yAxisLabel]="'radius'"-->
+<!--          [autoScale]="autoScale"-->
+<!--          [timeline]="timeline"-->
+<!--          [showGridLines]="showGridLines"-->
+<!--          [curve]="curves['Cardinal']"-->
+<!--          [rangeFillOpacity]="rangeFillOpacity"-->
+<!--          [roundDomains]="roundDomains"-->
+<!--          [tooltipDisabled]="tooltipDisabled"-->
+<!--          [trimXAxisTicks]="trimXAxisTicks"-->
+<!--          [trimYAxisTicks]="trimYAxisTicks"-->
+<!--          [maxXAxisTickLength]="maxXAxisTickLength"-->
+<!--          [maxYAxisTickLength]="maxYAxisTickLength"-->
+<!--          (select)="select($event)"-->
+<!--        >-->
+<!--        </ngx-charts-line-chart>-->
+<!--        <p></p>-->
+<!--        <ngx-charts-polar-chart-->
+<!--          style="position: static; display: inline-block; transform: none"-->
+<!--          [view]="view"-->
+<!--          class="chart-container"-->
+<!--          [scheme]="colorScheme"-->
+<!--          [schemeType]="schemeType"-->
+<!--          [results]="plotData"-->
+<!--          [animations]="animations"-->
+<!--          [legend]="false"-->
+<!--          [legendTitle]="legendTitle"-->
+<!--          [legendPosition]="legendPosition"-->
+<!--          [gradient]="gradient"-->
+<!--          [xAxis]="false"-->
+<!--          [yAxis]="true"-->
+<!--          [showXAxisLabel]="false"-->
+<!--          [showYAxisLabel]="false"-->
+<!--          [xAxisLabel]="'angle'"-->
+<!--          [yAxisLabel]="'radius'"-->
+<!--          [autoScale]="autoScale"-->
+<!--          [showGridLines]="showGridLines"-->
+<!--          [rangeFillOpacity]="rangeFillOpacity"-->
+<!--          [roundDomains]="roundDomains"-->
+<!--          [tooltipDisabled]="tooltipDisabled"-->
+<!--          [showSeriesOnHover]="showSeriesOnHover"-->
+<!--          [curve]="curves['Cardinal Closed']"-->
+<!--          [trimYAxisTicks]="trimYAxisTicks"-->
+<!--          [maxYAxisTickLength]="maxYAxisTickLength"-->
+<!--          (select)="select($event)"-->
+<!--          (activate)="activate($event)"-->
+<!--          (deactivate)="deactivate($event)"-->
+<!--        >-->
+<!--        </ngx-charts-polar-chart>-->
+<!--      </div>-->
       <div class="chart-container" *ngIf="chartType === 'tree-map-demo'" style="padding: 10px; border: 1px solid white">
         <h4 style="text-align: center">
           <button class="btn btn-link" [class.active]="sumBy === 'Size'" (click)="treemapProcess('Size')">
@@ -1536,33 +1536,33 @@
           <label>Maximum Radius:</label><input type="number" [(ngModel)]="maxRadius" />
         </div>
 
-        <div *ngIf="chart.options.includes('xScaleMin')">
-          <div *ngIf="chartType !== 'bubble-chart'">
-            <label></label><br />
-            <ngx-date-time [inputType]="'datetime'" label="Minimum X-Scale value" [(ngModel)]="xScaleMin">
-            </ngx-date-time>
-          </div>
-          <div *ngIf="chartType === 'bubble-chart'">
-            <label>Minimum X-Scale value</label><br />
-            <input type="number" [(ngModel)]="xScaleMin" /><br />
-          </div>
-        </div>
+<!--        <div *ngIf="chart.options.includes('xScaleMin')">-->
+<!--          <div *ngIf="chartType !== 'bubble-chart'">-->
+<!--            <label></label><br />-->
+<!--            <ngx-date-time [inputType]="'datetime'" label="Minimum X-Scale value" [(ngModel)]="xScaleMin">-->
+<!--            </ngx-date-time>-->
+<!--          </div>-->
+<!--          <div *ngIf="chartType === 'bubble-chart'">-->
+<!--            <label>Minimum X-Scale value</label><br />-->
+<!--            <input type="number" [(ngModel)]="xScaleMin" /><br />-->
+<!--          </div>-->
+<!--        </div>-->
 
-        <div *ngIf="chart.options.includes('xScaleMax')">
-          <div *ngIf="!chartType.startsWith('bar-horizontal') && chartType !== 'bubble-chart'">
-            <ngx-date-time
-              *ngIf="!chartType.startsWith('bar-horizontal')"
-              [inputType]="'datetime'"
-              label="Maximum X-Scale value"
-              [(ngModel)]="xScaleMax"
-            >
-            </ngx-date-time>
-          </div>
-          <div *ngIf="chartType.startsWith('bar-horizontal') || chartType === 'bubble-chart'">
-            <label>Maximum X-Scale value</label><br />
-            <input type="number" [(ngModel)]="xScaleMax" /><br />
-          </div>
-        </div>
+<!--        <div *ngIf="chart.options.includes('xScaleMax')">-->
+<!--          <div *ngIf="!chartType.startsWith('bar-horizontal') && chartType !== 'bubble-chart'">-->
+<!--            <ngx-date-time-->
+<!--              *ngIf="!chartType.startsWith('bar-horizontal')"-->
+<!--              [inputType]="'datetime'"-->
+<!--              label="Maximum X-Scale value"-->
+<!--              [(ngModel)]="xScaleMax"-->
+<!--            >-->
+<!--            </ngx-date-time>-->
+<!--          </div>-->
+<!--          <div *ngIf="chartType.startsWith('bar-horizontal') || chartType === 'bubble-chart'">-->
+<!--            <label>Maximum X-Scale value</label><br />-->
+<!--            <input type="number" [(ngModel)]="xScaleMax" /><br />-->
+<!--          </div>-->
+<!--        </div>-->
 
         <div *ngIf="chart.options.includes('yScaleMin')">
           <label>Minimum Y-Scale value</label><br />
