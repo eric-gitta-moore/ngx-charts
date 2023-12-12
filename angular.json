@@ -230,6 +230,5 @@
         }
       }
     }
-  },
-  "defaultProject": "ngx-charts"
+  }
 }
