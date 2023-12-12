@@ -85,6 +85,7 @@
     "@nguniversal/builders": "^13.0.2",
     "@swimlane/eslint-config": "^2.0.0",
     "@swimlane/prettier-config-swimlane": "^3.0.2",
+    "@types/codemirror": "^5.60.15",
     "@types/d3-array": "^2.12.1",
     "@types/d3-ease": "^2.0.0",
     "@types/d3-interpolate": "^2.0.0",

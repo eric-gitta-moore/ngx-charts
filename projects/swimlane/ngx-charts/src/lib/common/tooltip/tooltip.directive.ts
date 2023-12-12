@@ -8,7 +8,9 @@ import {
   Renderer2,
   OnDestroy,
   TemplateRef,
-  ComponentRef
+  ComponentRef,
+  Inject,
+  PLATFORM_ID
 } from '@angular/core';
 
 import { PlacementTypes } from './position';
@@ -16,6 +18,7 @@ import { StyleTypes } from './style.type';
 import { ShowTypes } from './show.type';
 
 import { TooltipService } from './tooltip.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Directive({ selector: '[ngx-tooltip]' })
 export class TooltipDirective implements OnDestroy {
@@ -57,7 +60,8 @@ export class TooltipDirective implements OnDestroy {
   constructor(
     private tooltipService: TooltipService,
     private viewContainerRef: ViewContainerRef,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    @Inject(PLATFORM_ID) public platformId: any
   ) {}
 
   ngOnDestroy(): void {
@@ -110,9 +114,12 @@ export class TooltipDirective implements OnDestroy {
   showTooltip(immediate?: boolean): void {
     if (this.component || this.tooltipDisabled) return;
 
-    const time = immediate
-      ? 0
-      : this.tooltipShowTimeout + (navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) ? 400 : 0);
+    let time: number = 0;
+    if (isPlatformBrowser(this.platformId)) {
+      time = immediate
+        ? 0
+        : this.tooltipShowTimeout + (navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/) ? 400 : 0);
+    }
 
     clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
