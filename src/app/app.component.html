@@ -152,6 +152,78 @@
         (deactivate)="deactivate($event)"
       >
       </ngx-charts-bar-horizontal-2d>
+      <ngx-charts-bar-vertical-stacked
+        *ngIf="chartType === 'bar-vertical-stacked'"
+        class="chart-container"
+        [view]="view"
+        [scheme]="colorScheme"
+        [schemeType]="schemeType"
+        [results]="multi"
+        [animations]="animations"
+        [gradient]="gradient"
+        [tooltipDisabled]="tooltipDisabled"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [legendTitle]="legendTitle"
+        [legendPosition]="legendPosition"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [showGridLines]="showGridLines"
+        [barPadding]="barPadding"
+        [roundDomains]="roundDomains"
+        [yScaleMax]="yScaleMax"
+        [noBarWhenZero]="noBarWhenZero"
+        [showDataLabel]="showDataLabel"
+        [trimXAxisTicks]="trimXAxisTicks"
+        [trimYAxisTicks]="trimYAxisTicks"
+        [rotateXAxisTicks]="rotateXAxisTicks"
+        [maxXAxisTickLength]="maxXAxisTickLength"
+        [maxYAxisTickLength]="maxYAxisTickLength"
+        [wrapTicks]="wrapTicks"
+        (select)="select($event)"
+        (activate)="activate($event)"
+        (deactivate)="deactivate($event)"
+      >
+      </ngx-charts-bar-vertical-stacked>
+      <ngx-charts-bar-horizontal-stacked
+        *ngIf="chartType === 'bar-horizontal-stacked'"
+        class="chart-container"
+        [view]="view"
+        [scheme]="colorScheme"
+        [schemeType]="schemeType"
+        [results]="multi"
+        [animations]="animations"
+        [gradient]="gradient"
+        [tooltipDisabled]="tooltipDisabled"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [legendTitle]="legendTitle"
+        [legendPosition]="legendPosition"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [showGridLines]="showGridLines"
+        [barPadding]="barPadding"
+        [roundDomains]="roundDomains"
+        [showDataLabel]="showDataLabel"
+        [xScaleMax]="xScaleMax"
+        [noBarWhenZero]="noBarWhenZero"
+        [trimXAxisTicks]="trimXAxisTicks"
+        [trimYAxisTicks]="trimYAxisTicks"
+        [rotateXAxisTicks]="rotateXAxisTicks"
+        [maxXAxisTickLength]="maxXAxisTickLength"
+        [maxYAxisTickLength]="maxYAxisTickLength"
+        [wrapTicks]="wrapTicks"
+        (select)="select($event)"
+        (activate)="activate($event)"
+        (deactivate)="deactivate($event)"
+      >
+      </ngx-charts-bar-horizontal-stacked>
     </div>
   </div>
   <div class="sidebar">
@@ -569,33 +641,33 @@
           <label>Maximum Radius:</label><input type="number" [(ngModel)]="maxRadius" />
         </div>
 
-<!--        <div *ngIf="chart.options.includes('xScaleMin')">-->
-<!--          <div *ngIf="chartType !== 'bubble-chart'">-->
-<!--            <label></label><br />-->
-<!--            <ngx-date-time [inputType]="'datetime'" label="Minimum X-Scale value" [(ngModel)]="xScaleMin">-->
-<!--            </ngx-date-time>-->
-<!--          </div>-->
-<!--          <div *ngIf="chartType === 'bubble-chart'">-->
-<!--            <label>Minimum X-Scale value</label><br />-->
-<!--            <input type="number" [(ngModel)]="xScaleMin" /><br />-->
-<!--          </div>-->
-<!--        </div>-->
+        <!--        <div *ngIf="chart.options.includes('xScaleMin')">-->
+        <!--          <div *ngIf="chartType !== 'bubble-chart'">-->
+        <!--            <label></label><br />-->
+        <!--            <ngx-date-time [inputType]="'datetime'" label="Minimum X-Scale value" [(ngModel)]="xScaleMin">-->
+        <!--            </ngx-date-time>-->
+        <!--          </div>-->
+        <!--          <div *ngIf="chartType === 'bubble-chart'">-->
+        <!--            <label>Minimum X-Scale value</label><br />-->
+        <!--            <input type="number" [(ngModel)]="xScaleMin" /><br />-->
+        <!--          </div>-->
+        <!--        </div>-->
 
-<!--        <div *ngIf="chart.options.includes('xScaleMax')">-->
-<!--          <div *ngIf="!chartType.startsWith('bar-horizontal') && chartType !== 'bubble-chart'">-->
-<!--            <ngx-date-time-->
-<!--              *ngIf="!chartType.startsWith('bar-horizontal')"-->
-<!--              [inputType]="'datetime'"-->
-<!--              label="Maximum X-Scale value"-->
-<!--              [(ngModel)]="xScaleMax"-->
-<!--            >-->
-<!--            </ngx-date-time>-->
-<!--          </div>-->
-<!--          <div *ngIf="chartType.startsWith('bar-horizontal') || chartType === 'bubble-chart'">-->
-<!--            <label>Maximum X-Scale value</label><br />-->
-<!--            <input type="number" [(ngModel)]="xScaleMax" /><br />-->
-<!--          </div>-->
-<!--        </div>-->
+        <!--        <div *ngIf="chart.options.includes('xScaleMax')">-->
+        <!--          <div *ngIf="!chartType.startsWith('bar-horizontal') && chartType !== 'bubble-chart'">-->
+        <!--            <ngx-date-time-->
+        <!--              *ngIf="!chartType.startsWith('bar-horizontal')"-->
+        <!--              [inputType]="'datetime'"-->
+        <!--              label="Maximum X-Scale value"-->
+        <!--              [(ngModel)]="xScaleMax"-->
+        <!--            >-->
+        <!--            </ngx-date-time>-->
+        <!--          </div>-->
+        <!--          <div *ngIf="chartType.startsWith('bar-horizontal') || chartType === 'bubble-chart'">-->
+        <!--            <label>Maximum X-Scale value</label><br />-->
+        <!--            <input type="number" [(ngModel)]="xScaleMax" /><br />-->
+        <!--          </div>-->
+        <!--        </div>-->
 
         <div *ngIf="chart.options.includes('yScaleMin')">
           <label>Minimum Y-Scale value</label><br />
