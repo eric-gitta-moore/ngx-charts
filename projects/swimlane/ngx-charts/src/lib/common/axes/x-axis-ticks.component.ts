@@ -108,6 +108,10 @@ export class XAxisTicksComponent implements OnChanges, AfterViewInit {
 
   updateDims(): void {
     if (!isPlatformBrowser(this.platformId)) {
+      if (Object.is(this.width, this.approxHeight)) {
+        // break infinity loop
+        return;
+      }
       // for SSR, use approximate value instead of measured
       this.dimensionsChanged.emit({ height: this.approxHeight });
       return;

@@ -152,7 +152,7 @@
                 }
               ],
               "optimization": true,
-              "sourceMap": false,
+              "sourceMap": true,
               "extractLicenses": true
             },
             "development": {}

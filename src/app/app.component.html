@@ -565,6 +565,38 @@
         (deactivate)="deactivate($event)"
       >
       </ngx-charts-area-chart-normalized>
+      <combo-chart-component
+        *ngIf="chartType === 'combo-chart'"
+        class="chart-container"
+        [view]="view"
+        [scheme]="comboBarScheme"
+        [colorSchemeLine]="lineChartScheme"
+        [results]="barChart"
+        [animations]="animations"
+        [lineChart]="lineChartSeries"
+        [tooltipDisabled]="tooltipDisabled"
+        [yAxisTickFormatting]="yLeftTickFormat"
+        [yLeftAxisScaleFactor]="yLeftAxisScale"
+        [yRightAxisScaleFactor]="yRightAxisScale"
+        [yRightAxisTickFormatting]="yRightTickFormat"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [legendTitle]="legendTitle"
+        [legendPosition]="legendPosition"
+        [showGridLines]="showGridLines"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [showRightYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [yAxisLabelRight]="yAxisLabelRight"
+        [noBarWhenZero]="noBarWhenZero"
+        [wrapTicks]="wrapTicks"
+        (select)="onSelect($event)"
+      >
+      </combo-chart-component>
     </div>
   </div>
   <div class="sidebar">

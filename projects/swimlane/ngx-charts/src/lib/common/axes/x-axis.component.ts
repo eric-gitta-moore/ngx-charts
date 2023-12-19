@@ -1,12 +1,12 @@
 import {
+  ChangeDetectionStrategy,
   Component,
-  Input,
-  SimpleChanges,
-  Output,
   EventEmitter,
+  Input,
   OnChanges,
-  ViewChild,
-  ChangeDetectionStrategy
+  Output,
+  SimpleChanges,
+  ViewChild
 } from '@angular/core';
 
 import { XAxisTicksComponent } from './x-axis-ticks.component';
@@ -94,8 +94,10 @@ export class XAxisComponent implements OnChanges {
   }
 
   emitTicksHeight({ height }): void {
+    if (Number.isNaN(height))return
     const newLabelOffset = height + 25 + 5;
-    if (newLabelOffset !== this.labelOffset) {
+    // NaN in ssr mode
+    if (!Object.is(newLabelOffset, this.labelOffset)) {
       this.labelOffset = newLabelOffset;
       setTimeout(() => {
         this.dimensionsChanged.emit({ height });

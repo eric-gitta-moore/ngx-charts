@@ -1,16 +1,16 @@
 import {
-  Component,
-  Input,
-  Output,
-  OnChanges,
-  ElementRef,
-  ViewChild,
-  EventEmitter,
   AfterViewInit,
   ChangeDetectionStrategy,
-  SimpleChanges,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  Input,
+  OnChanges,
+  Output,
   PLATFORM_ID,
-  Inject
+  SimpleChanges,
+  ViewChild
 } from '@angular/core';
 import { trimLabel } from '../trim-label.helper';
 import { getTickLines, reduceTicks } from './ticks.helper';
@@ -159,6 +159,9 @@ export class YAxisTicksComponent implements OnChanges, AfterViewInit {
 
   updateDims(): void {
     if (!isPlatformBrowser(this.platformId)) {
+      if (Object.is(this.width, this.getApproximateAxisWidth())) {
+        return;
+      }
       // for SSR, use approximate value instead of measured
       this.width = this.getApproximateAxisWidth();
       this.dimensionsChanged.emit({ width: this.width });
