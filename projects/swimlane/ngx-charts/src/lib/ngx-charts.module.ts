@@ -13,7 +13,7 @@ import { TreeMapModule } from './tree-map/tree-map.module';
 import { GaugeModule } from './gauge/gauge.module';
 import { ngxChartsPolyfills } from './polyfills';
 import { SankeyModule } from './sankey/sankey.module';
-// import { NestedPieModule } from './nested-pie/nested-pie.module'
+import { NestedPieModule } from '@swimlane/ngx-charts/nested-pie/nested-pie.module';
 
 @NgModule({
   exports: [
@@ -29,7 +29,8 @@ import { SankeyModule } from './sankey/sankey.module';
     NumberCardModule,
     PieChartModule,
     TreeMapModule,
-    GaugeModule
+    GaugeModule,
+    NestedPieModule
   ]
 })
 export class NgxChartsModule {

@@ -269,11 +269,6 @@ export class AppComponent implements OnInit {
   dimVisible: boolean = true;
   optsVisible: boolean = true;
 
-  //nested pie chart
-  isdoughnut: boolean = true;
-  view_doughnut: [1000, 500];
-  arcWidth_outter: number = 0.1;
-
   constructor(public location: Location) {
     this.mathFunction = this.getFunction();
 
