@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { ChartCommonModule } from '../common/chart-common.module';
-import { NestedPieComponent } from './nested-pie.component';
-import { PieChartModule } from '../pie-chart/pie-chart.module';
+import { NestedPieComponent } from '@swimlane/ngx-charts/nested-pie/nested-pie.component';
+import { ChartCommonModule } from '@swimlane/ngx-charts/common/chart-common.module';
+import { PieChartModule } from '@swimlane/ngx-charts/pie-chart/pie-chart.module';
 
 @NgModule({
   imports: [ChartCommonModule, PieChartModule],
-  declarations: [NestedPieComponent],
-  exports: [NestedPieComponent]
+  exports: [NestedPieComponent],
+  declarations: [NestedPieComponent]
 })
 export class NestedPieModule {}
