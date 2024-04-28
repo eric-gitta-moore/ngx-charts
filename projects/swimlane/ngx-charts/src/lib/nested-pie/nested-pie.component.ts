@@ -133,6 +133,10 @@ export class NestedPieComponent extends BaseChartComponent {
      * Otherwise, ratio is directly used as radius
      */
     this.data = this.results.map(item => {
+      if (globalOuterRadius < 1) {
+        // The chart width is too small
+        return item;
+      }
       const [innerRadiusRatio, outerRadiusRatio] = item.radius;
       item.radius = [
         innerRadiusRatio <= 1 ? globalOuterRadius * innerRadiusRatio : innerRadiusRatio,
