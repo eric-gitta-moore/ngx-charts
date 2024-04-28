@@ -3,7 +3,7 @@ import {
   BoxChartMultiSeries,
   BubbleChartMultiSeries,
   MultiSeries,
-  NestPieMultiSeries,
+  NestedPieMultiSeries,
   SankeyData,
   Series,
   SingleSeries,
@@ -888,7 +888,7 @@ export const sankeyData: SankeyData = [
   { source: 'Republic of Equatorial Guinea', target: 'Portugal', value: 5 }
 ];
 
-export const nestedPieData: NestPieMultiSeries = [
+export const nestedPieData: NestedPieMultiSeries = [
   {
     name: 'Access From',
     radius: [0, '30%'],

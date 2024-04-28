@@ -32,13 +32,13 @@ export interface AreaChartSeries {
   series: AreaChartDataItem[];
 }
 
-export interface NestPieSeries {
+export interface NestedPieSeries {
   name: StringOrNumberOrDate;
   radius: [string | number, string | number];
   series: DataItem[];
 }
 
-export interface NestPieMultiSeries extends MultiSeries<NestPieSeries> {}
+export interface NestedPieMultiSeries extends MultiSeries<NestedPieSeries> {}
 
 export interface PieGridData {
   data: PieGridDataItem;
