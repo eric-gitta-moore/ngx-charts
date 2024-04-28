@@ -1120,7 +1120,7 @@
     >
     </ngx-charts-bar-horizontal-stacked>
     <ngx-charts-nested-pie
-      *ngIf="chartType === 'nested-pie-chart'"
+      *ngIf="chartType === 'nested-pie'"
       class="chart-container"
       [view]="view"
       [scheme]="colorScheme"
@@ -1131,8 +1131,6 @@
       [legendPosition]="legendPosition"
       [explodeSlices]="explodeSlices"
       [labels]="showLabels"
-      [doughnut]="doughnut"
-      [arcWidth]="arcWidth"
       [gradient]="gradient"
       [tooltipDisabled]="tooltipDisabled"
       [tooltipText]="pieTooltipText"
@@ -1182,6 +1180,7 @@
         <pre *ngIf="chart.inputFormat === 'comboChart'">{{ barChart | json }}</pre>
         <pre *ngIf="chart.inputFormat === 'comboChart'">{{ lineChartSeries | json }}</pre>
         <pre *ngIf="chart.inputFormat === 'timelineFilter'">{{ timelineFilterBarData | json }}</pre>
+        <pre *ngIf="chart.inputFormat === 'nestedPieMultiSeries'">{{ nestedPieData | json }}</pre>
         <div>
           <label>
             <input type="checkbox" [(ngModel)]="realTimeData" />

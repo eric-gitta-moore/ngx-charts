@@ -9,7 +9,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { LegendOptions, LegendPosition } from '@swimlane/ngx-charts/common/types/legend.model';
-import { DataItem } from '@swimlane/ngx-charts/models/chart-data.model';
+import { DataItem, NestedPieMultiSeries } from '@swimlane/ngx-charts/models/chart-data.model';
 import { ColorHelper } from '@swimlane/ngx-charts/common/color.helper';
 import { ViewDimensions } from '@swimlane/ngx-charts/common/types/view-dimension.interface';
 import { calculateViewDimensions } from '@swimlane/ngx-charts/common/view-dimensions.helper';
@@ -29,11 +29,11 @@ import { BaseChartComponent } from '@swimlane/ngx-charts/common/base-chart.compo
       (legendLabelDeactivate)="onDeactivate($event, true)"
       (legendLabelClick)="onClick($event)"
     >
-      <svg:g [attr.transform]="translation" class="pie-chart chart">
+      <svg:g *ngFor="let pie of data; trackBy: trackBy" [attr.transform]="translation" class="pie-chart chart">
         <svg:g
           ngx-charts-pie-series
           [colors]="colors"
-          [series]="data"
+          [series]="pie.series"
           [showLabels]="labels"
           [labelFormatting]="labelFormatting"
           [trimLabels]="trimLabels"
@@ -60,13 +60,12 @@ import { BaseChartComponent } from '@swimlane/ngx-charts/common/base-chart.compo
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NestedPieComponent extends BaseChartComponent {
+  @Input() results: any;
   @Input() labels: boolean = false;
   @Input() legend: boolean = false;
   @Input() legendTitle: string = 'Legend';
   @Input() legendPosition: LegendPosition = LegendPosition.Right;
   @Input() explodeSlices: boolean = false;
-  @Input() doughnut: boolean = false;
-  @Input() arcWidth: number = 0.25;
   @Input() gradient: boolean;
   @Input() activeEntries: any[] = [];
   @Input() tooltipDisabled: boolean = false;
@@ -86,7 +85,7 @@ export class NestedPieComponent extends BaseChartComponent {
   translation: string;
   outerRadius: number;
   innerRadius: number;
-  data: DataItem[];
+  data: NestedPieMultiSeries;
   colors: ColorHelper;
   domain: string[];
   dims: ViewDimensions;
@@ -123,9 +122,6 @@ export class NestedPieComponent extends BaseChartComponent {
       this.outerRadius /= 2;
     }
     this.innerRadius = 0;
-    if (this.doughnut) {
-      this.innerRadius = this.outerRadius * (1 - this.arcWidth);
-    }
 
     this.domain = this.getDomain();
 
@@ -201,5 +197,9 @@ export class NestedPieComponent extends BaseChartComponent {
 
   private hasNoOptionalMarginsSet(): boolean {
     return !this.margins || this.margins.length <= 0;
+  }
+
+  trackBy(index, pie): string {
+    return pie.name;
   }
 }
