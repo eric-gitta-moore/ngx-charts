@@ -39,8 +39,8 @@ import { BaseChartComponent } from '@swimlane/ngx-charts/common/base-chart.compo
           [trimLabels]="trimLabels"
           [maxLabelLength]="maxLabelLength"
           [activeEntries]="activeEntries"
-          [innerRadius]="innerRadius"
-          [outerRadius]="outerRadius"
+          [innerRadius]="pie.radius[0]"
+          [outerRadius]="pie.radius[1]"
           [explodeSlices]="explodeSlices"
           [gradient]="gradient"
           [animations]="animations"
@@ -60,7 +60,6 @@ import { BaseChartComponent } from '@swimlane/ngx-charts/common/base-chart.compo
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NestedPieComponent extends BaseChartComponent {
-  @Input() results: any;
   @Input() labels: boolean = false;
   @Input() legend: boolean = false;
   @Input() legendTitle: string = 'Legend';
@@ -83,8 +82,6 @@ export class NestedPieComponent extends BaseChartComponent {
   @ContentChild('tooltipTemplate') tooltipTemplate: TemplateRef<any>;
 
   translation: string;
-  outerRadius: number;
-  innerRadius: number;
   data: NestedPieMultiSeries;
   colors: ColorHelper;
   domain: string[];
@@ -114,20 +111,31 @@ export class NestedPieComponent extends BaseChartComponent {
     const xOffset = this.margins[3] + this.dims.width / 2;
     const yOffset = this.margins[0] + this.dims.height / 2;
     this.translation = `translate(${xOffset}, ${yOffset})`;
-    this.outerRadius = Math.min(this.dims.width, this.dims.height);
-    if (this.labels) {
-      // make room for labels
-      this.outerRadius /= 3;
-    } else {
-      this.outerRadius /= 2;
-    }
-    this.innerRadius = 0;
 
     this.domain = this.getDomain();
 
     // sort data according to domain
     this.data = this.results.sort((a, b) => {
       return this.domain.indexOf(a.name) - this.domain.indexOf(b.name);
+    });
+
+    let globalOuterRadius = Math.min(this.dims.width, this.dims.height);
+    if (this.labels) {
+      // make room for labels
+      globalOuterRadius /= 3;
+    } else {
+      globalOuterRadius /= 2;
+    }
+    const globalInnerRadius = 0;
+
+    this.data = this.results.map(item => {
+      const [innerRadiusRatio, outerRadiusRatio] = item.radius;
+      item.radius = [
+        innerRadiusRatio <= 1 ? globalOuterRadius * innerRadiusRatio : innerRadiusRatio,
+        outerRadiusRatio <= 1 ? globalOuterRadius * outerRadiusRatio : outerRadiusRatio
+      ];
+
+      return item;
     });
 
     this.setColors();
