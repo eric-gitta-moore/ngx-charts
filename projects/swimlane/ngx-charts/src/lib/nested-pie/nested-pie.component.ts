@@ -128,6 +128,10 @@ export class NestedPieComponent extends BaseChartComponent {
     }
     const globalInnerRadius = 0;
 
+    /**
+     * If ratio is not greater than 1, then it is converted proportionally
+     * Otherwise, ratio is directly used as radius
+     */
     this.data = this.results.map(item => {
       const [innerRadiusRatio, outerRadiusRatio] = item.radius;
       item.radius = [
