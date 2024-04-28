@@ -1,21 +1,21 @@
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import {
-  ElementRef,
-  NgZone,
+  AfterViewInit,
   ChangeDetectorRef,
   Component,
-  Input,
-  Output,
+  ElementRef,
   EventEmitter,
-  AfterViewInit,
-  OnDestroy,
-  OnChanges,
-  SimpleChanges,
-  PLATFORM_ID,
   Inject,
-  OnInit
+  Input,
+  NgZone,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  PLATFORM_ID,
+  SimpleChanges
 } from '@angular/core';
-
+import rfdc from 'rfdc';
 import { fromEvent as observableFromEvent } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { VisibilityObserver } from '../utils/visibility-observer';
@@ -181,42 +181,7 @@ export class BaseChartComponent implements OnChanges, AfterViewInit, OnDestroy, 
    * @memberOf BaseChart
    */
   private cloneData(data): any {
-    const results = [];
-
-    for (const item of data) {
-      const copy = {};
-
-      if (item['name'] !== undefined) {
-        copy['name'] = item['name'];
-      }
-
-      if (item['value'] !== undefined) {
-        copy['value'] = item['value'];
-      }
-
-      if (item['series'] !== undefined) {
-        copy['series'] = [];
-        for (const seriesItem of item['series']) {
-          const seriesItemCopy = Object.assign({}, seriesItem);
-          copy['series'].push(seriesItemCopy);
-        }
-      }
-
-      if (item['extra'] !== undefined) {
-        copy['extra'] = JSON.parse(JSON.stringify(item['extra']));
-      }
-
-      if (item['source'] !== undefined) {
-        copy['source'] = item['source'];
-      }
-
-      if (item['target'] !== undefined) {
-        copy['target'] = item['target'];
-      }
-
-      results.push(copy);
-    }
-
-    return results;
+    const cloneDeep = rfdc();
+    return cloneDeep(data);
   }
 }
