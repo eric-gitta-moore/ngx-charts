@@ -20,7 +20,7 @@ export interface Series {
   series: DataItem[];
 }
 
-export interface MultiSeries extends Array<Series> {}
+export interface MultiSeries<T = Series> extends Array<T> {}
 
 export interface AreaChartDataItem extends DataItem {
   d0: number;
@@ -31,6 +31,14 @@ export interface AreaChartSeries {
   name: StringOrNumberOrDate;
   series: AreaChartDataItem[];
 }
+
+export interface NestPieSeries {
+  name: StringOrNumberOrDate;
+  radius: [string | number, string | number];
+  series: DataItem[];
+}
+
+export interface NestPieMultiSeries extends MultiSeries<NestPieSeries> {}
 
 export interface PieGridData {
   data: PieGridDataItem;

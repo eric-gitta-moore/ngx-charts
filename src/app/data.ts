@@ -1,12 +1,13 @@
 import { data as countries } from 'emoji-flags';
 import {
-  SingleSeries,
-  MultiSeries,
-  BubbleChartMultiSeries,
   BoxChartMultiSeries,
+  BubbleChartMultiSeries,
+  MultiSeries,
+  NestPieMultiSeries,
+  SankeyData,
   Series,
-  TreeMapData,
-  SankeyData
+  SingleSeries,
+  TreeMapData
 } from '@swimlane/ngx-charts/models/chart-data.model';
 
 export const single: SingleSeries = [
@@ -887,29 +888,28 @@ export const sankeyData: SankeyData = [
   { source: 'Republic of Equatorial Guinea', target: 'Portugal', value: 5 }
 ];
 
-export const nestedPieData: MultiSeries = [
-  { name: 'Marketing', series: [
-      { value: 234, name: 'Union Ads' },
-      { value: 135, name: 'Video Ads' }
+export const nestedPieData: NestPieMultiSeries = [
+  {
+    name: 'Access From',
+    radius: [0, '30%'],
+    series: [
+      { value: 1548, name: 'Search Engine' },
+      { value: 775, name: 'Direct' },
+      { value: 679, name: 'Marketing' }
     ]
   },
-  { name: 'Others', series: [
-      { value: 102, name: 'Others' }
-    ]
-  },
-  { name: 'Search Engine', series: [
-      { value: 251, name: 'Google' },
-      { value: 147, name: 'Bing' },
+  {
+    name: 'Access From',
+    radius: ['45%', '60%'],
+    series: [
       { value: 1048, name: 'Baidu' },
+      { value: 335, name: 'Direct' },
+      { value: 310, name: 'Email' },
+      { value: 251, name: 'Google' },
+      { value: 234, name: 'Union Ads' },
+      { value: 147, name: 'Bing' },
+      { value: 135, name: 'Video Ads' },
+      { value: 102, name: 'Others' }
     ]
   }
 ];
-
-// export function innerData(nestedPieData) : SingleSeries {
-//   return nestedPieData.map(item => item.data).flat();
-// }
-
-// export function outterData(nestedPieData) : SingleSeries {
-//   nestedPieData.map(item => {
-//   const sum = item.data.reduce((acc, curr) => acc + curr.value, 0);
-//   return { name: item.group, value: sum });
