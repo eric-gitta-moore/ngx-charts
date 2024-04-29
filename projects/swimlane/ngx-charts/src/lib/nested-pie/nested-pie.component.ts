@@ -6,6 +6,7 @@ import {
   Input,
   Output,
   TemplateRef,
+  TrackByFunction,
   ViewEncapsulation
 } from '@angular/core';
 import { LegendOptions, LegendPosition } from '@swimlane/ngx-charts/common/types/legend.model';
@@ -155,7 +156,16 @@ export class NestedPieComponent extends BaseChartComponent {
   }
 
   getDomain(): string[] {
-    return this.results.map(d => d.label);
+    const domain = [];
+    for (const group of this.results) {
+      for (const d of group.series) {
+        if (!domain.includes(d.label)) {
+          domain.push(d.label);
+        }
+      }
+    }
+
+    return domain;
   }
 
   onClick(data: DataItem | string): void {
@@ -218,7 +228,7 @@ export class NestedPieComponent extends BaseChartComponent {
     return !this.margins || this.margins.length <= 0;
   }
 
-  trackBy(index, pie): string {
+  trackBy: TrackByFunction<NestedPieSeries> = (index, pie) => {
     return pie.name;
-  }
+  };
 }
