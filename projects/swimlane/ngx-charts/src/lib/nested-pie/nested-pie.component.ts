@@ -9,7 +9,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { LegendOptions, LegendPosition } from '@swimlane/ngx-charts/common/types/legend.model';
-import { DataItem, NestedPieMultiSeries } from '@swimlane/ngx-charts/models/chart-data.model';
+import { DataItem, NestedPieMultiSeries, NestedPieSeries } from '@swimlane/ngx-charts/models/chart-data.model';
 import { ColorHelper } from '@swimlane/ngx-charts/common/color.helper';
 import { ViewDimensions } from '@swimlane/ngx-charts/common/types/view-dimension.interface';
 import { calculateViewDimensions } from '@swimlane/ngx-charts/common/view-dimensions.helper';
@@ -25,8 +25,8 @@ import { BaseChartComponent } from '@swimlane/ngx-charts/common/base-chart.compo
       [legendOptions]="legendOptions"
       [activeEntries]="activeEntries"
       [animations]="animations"
-      (legendLabelActivate)="onActivate($event, true)"
-      (legendLabelDeactivate)="onDeactivate($event, true)"
+      (legendLabelActivate)="onActivate($event, undefined, true)"
+      (legendLabelDeactivate)="onDeactivate($event, undefined, true)"
       (legendLabelClick)="onClick($event)"
     >
       <svg:g
@@ -53,8 +53,8 @@ import { BaseChartComponent } from '@swimlane/ngx-charts/common/base-chart.compo
           [tooltipText]="tooltipText"
           (dblclick)="dblclick.emit($event)"
           (select)="onClick($event)"
-          (activate)="onActivate($event)"
-          (deactivate)="onDeactivate($event)"
+          (activate)="onActivate($event, pie)"
+          (deactivate)="onDeactivate($event, pie)"
         />
       </svg:g>
     </ngx-charts-chart>
@@ -176,41 +176,40 @@ export class NestedPieComponent extends BaseChartComponent {
     };
   }
 
-  onActivate(item, fromLegend = false): void {
-    item = this.results.find(d => {
-      if (fromLegend) {
-        return d.label === item.name;
-      } else {
-        return d.name === item.name;
-      }
-    });
-
-    const idx = this.activeEntries.findIndex(d => {
-      return d.name === item.name && d.value === item.value && d.series === item.series;
-    });
-    if (idx > -1) {
-      return;
+  onActivate(event, pie: NestedPieSeries, fromLegend: boolean = false): void {
+    const item = Object.assign({}, event);
+    if (pie) {
+      item.series = pie.name;
     }
 
-    this.activeEntries = [item, ...this.activeEntries];
+    const items = this.results
+      .map(g => g.series)
+      .flat()
+      .filter(i => {
+        if (fromLegend) {
+          return i.label === item.name;
+        } else {
+          return i.name === item.name && i.series === item.series;
+        }
+      });
+
+    this.activeEntries = [...items];
     this.activate.emit({ value: item, entries: this.activeEntries });
   }
 
-  onDeactivate(item, fromLegend = false): void {
-    item = this.results.find(d => {
+  onDeactivate(event, pie: NestedPieSeries, fromLegend: boolean = false): void {
+    const item = Object.assign({}, event);
+    if (pie) {
+      item.series = pie.name;
+    }
+
+    this.activeEntries = this.activeEntries.filter(i => {
       if (fromLegend) {
-        return d.label === item.name;
+        return i.label !== item.name;
       } else {
-        return d.name === item.name;
+        return !(i.name === item.name && i.series === item.series);
       }
     });
-
-    const idx = this.activeEntries.findIndex(d => {
-      return d.name === item.name && d.value === item.value && d.series === item.series;
-    });
-
-    this.activeEntries.splice(idx, 1);
-    this.activeEntries = [...this.activeEntries];
 
     this.deactivate.emit({ value: item, entries: this.activeEntries });
   }
