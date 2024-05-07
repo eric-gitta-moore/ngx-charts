@@ -891,7 +891,8 @@ export const sankeyData: SankeyData = [
 export const nestedPieData: NestedPieMultiSeries = [
   {
     name: 'Access From 1',
-    radius: [0.2, 0.3],
+    innerRadiusRatio: 0.2,
+    outerRadiusRatio: 0.3,
     series: [
       { value: 1548, name: 'Search Engine' },
       { value: 775, name: 'Direct' },
@@ -900,18 +901,20 @@ export const nestedPieData: NestedPieMultiSeries = [
   },
   {
     name: 'Access From 2',
-    radius: [0.5, 0.6],
+    innerRadiusRatio: 0.5,
+    outerRadiusRatio: 0.6,
     series: [
       { value: 1048, name: 'Engineer' },
       { value: 335, name: 'Teacher' },
       { value: 310, name: 'Worker' },
       { value: 251, name: 'Student' },
-      { value: 234, name: 'Master' },
+      { value: 234, name: 'Master' }
     ]
   },
   {
     name: 'Access From 3',
-    radius: [0.8, 1],
+    innerRadiusRatio: 0.8,
+    outerRadiusRatio: 1,
     series: [
       { value: 1048, name: 'Baidu' },
       { value: 335, name: 'Direct' },

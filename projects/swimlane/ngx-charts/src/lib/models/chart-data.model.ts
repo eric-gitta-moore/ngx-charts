@@ -34,7 +34,10 @@ export interface AreaChartSeries {
 
 export interface NestedPieSeries {
   name: StringOrNumberOrDate;
-  radius: [number, number];
+  innerRadius?: number;
+  outerRadius?: number;
+  innerRadiusRatio?: number;
+  outerRadiusRatio?: number;
   series: DataItem[];
 }
 

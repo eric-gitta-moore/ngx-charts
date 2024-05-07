@@ -44,8 +44,8 @@ import { BaseChartComponent } from '@swimlane/ngx-charts/common/base-chart.compo
           [trimLabels]="trimLabels"
           [maxLabelLength]="maxLabelLength"
           [activeEntries]="activeEntries"
-          [innerRadius]="pie.radius[0]"
-          [outerRadius]="pie.radius[1]"
+          [innerRadius]="pie.innerRadius"
+          [outerRadius]="pie.outerRadius"
           [explodeSlices]="explodeSlices"
           [gradient]="gradient"
           [animations]="animations"
@@ -122,7 +122,7 @@ export class NestedPieComponent extends BaseChartComponent {
 
     // sort data according to outerRadius
     this.data = this.results.sort((a, b) => {
-      return b.radius[1] - a.radius[1];
+      return b.outerRadius - a.outerRadius;
     });
 
     let globalOuterRadius = Math.min(this.dims.width, this.dims.height);
@@ -143,11 +143,9 @@ export class NestedPieComponent extends BaseChartComponent {
         // The chart width is too small
         return item;
       }
-      const [innerRadiusRatio, outerRadiusRatio] = item.radius;
-      item.radius = [
-        innerRadiusRatio <= 1 ? globalOuterRadius * innerRadiusRatio : innerRadiusRatio,
-        outerRadiusRatio <= 1 ? globalOuterRadius * outerRadiusRatio : outerRadiusRatio
-      ];
+      const { innerRadiusRatio, outerRadiusRatio } = item;
+      item.innerRadius = innerRadiusRatio <= 1 ? globalOuterRadius * innerRadiusRatio : innerRadiusRatio;
+      item.outerRadius = outerRadiusRatio <= 1 ? globalOuterRadius * outerRadiusRatio : outerRadiusRatio;
 
       return item;
     });
