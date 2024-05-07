@@ -77,6 +77,7 @@ export class NestedPieComponent extends BaseChartComponent {
   @Input() trimLabels: boolean = true;
   @Input() maxLabelLength: number = 10;
   @Input() tooltipText: any;
+  @Input() visibilityLegends: string[] | undefined;
   @Output() dblclick = new EventEmitter();
   // optional margins
   @Input() margins: number[];
@@ -179,7 +180,7 @@ export class NestedPieComponent extends BaseChartComponent {
   getLegendOptions(): LegendOptions {
     return {
       scaleType: ScaleType.Ordinal,
-      domain: this.domain,
+      domain: this.visibilityLegends ? this.domain.filter(e => this.visibilityLegends.includes(e)) : this.domain,
       colors: this.colors,
       title: this.legendTitle,
       position: this.legendPosition

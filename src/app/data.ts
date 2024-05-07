@@ -900,7 +900,7 @@ export const nestedPieData: NestedPieMultiSeries = [
   },
   {
     name: 'Access From 2',
-    radius: [0.45, 0.55],
+    radius: [0.5, 0.6],
     series: [
       { value: 1048, name: 'Engineer' },
       { value: 335, name: 'Teacher' },
@@ -911,7 +911,7 @@ export const nestedPieData: NestedPieMultiSeries = [
   },
   {
     name: 'Access From 3',
-    radius: [0.7, 1],
+    radius: [0.8, 1],
     series: [
       { value: 1048, name: 'Baidu' },
       { value: 335, name: 'Direct' },

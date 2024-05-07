@@ -11,7 +11,8 @@ import {
   fiscalYearReport,
   generateData,
   generateGraph,
-  multi, nestedPieData,
+  multi,
+  nestedPieData,
   sankeyData,
   single,
   timelineFilterBarData,
@@ -182,6 +183,18 @@ export class AppComponent implements OnInit {
 
   // nest pie
   nestedPieData: NestedPieMultiSeries;
+  visibilityLegends: string[] = [
+    'Direct',
+    'Marketing',
+    'Search Engine',
+    'Email',
+    'Union Ads',
+    'Video Ads',
+    'Baidu',
+    'Google',
+    'Bing',
+    'Others'
+  ];
 
   // line, area
   autoScale = true;
