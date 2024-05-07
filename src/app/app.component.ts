@@ -346,6 +346,9 @@ export class AppComponent implements OnInit {
     this.gaugeValue = this.gaugeMin + Math.floor(Math.random() * (this.gaugeMax - this.gaugeMin));
 
     const country = this.countries[Math.floor(Math.random() * this.countries.length)];
+    const nestedPieSeriesFlattened = this.nestedPieData
+      .filter(e => e.series.length > 1)
+      .flatMap((e, parentIdx) => e.series.map(inner => ({ parent: e.name, parentIdx, ...inner })));
     const add = Math.random() < 0.7;
     const remove = Math.random() < 0.5;
 
@@ -386,6 +389,12 @@ export class AppComponent implements OnInit {
         const index = Math.floor(Math.random() * this.boxData.length);
         this.boxData.splice(index, 1);
         this.boxData = [...this.boxData];
+      }
+
+      if (nestedPieSeriesFlattened.length > 1) {
+        const index = Math.floor(Math.random() * nestedPieSeriesFlattened.length);
+        this.nestedPieData[nestedPieSeriesFlattened[index].parentIdx].series.splice(index, 1);
+        this.nestedPieData = [...this.nestedPieData];
       }
     }
 
@@ -484,6 +493,15 @@ export class AppComponent implements OnInit {
       this.statusData = this.getStatusData();
 
       this.timelineFilterBarData = timelineFilterBarData();
+
+      // nested pie
+      const mockPieData = {
+        name: country.name,
+        value: Math.floor(1000 + Math.random() * 500)
+      };
+      const idx = Math.floor(Math.random() * nestedPieSeriesFlattened.length);
+      this.nestedPieData[nestedPieSeriesFlattened[idx].parentIdx].series.splice(idx, 0, mockPieData);
+      this.nestedPieData = [...this.nestedPieData];
     }
 
     const date = new Date(Math.floor(1473700105009 + Math.random() * 1000000000));
