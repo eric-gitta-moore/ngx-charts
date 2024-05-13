@@ -39,6 +39,7 @@ export interface NestedPieSeries {
   innerRadiusRatio?: number;
   outerRadiusRatio?: number;
   series: DataItem[];
+  isShowLabel?: boolean;
 }
 
 export interface NestedPieMultiSeries extends MultiSeries<NestedPieSeries> {}

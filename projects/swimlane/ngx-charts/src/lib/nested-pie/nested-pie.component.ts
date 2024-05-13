@@ -31,7 +31,7 @@ import { BaseChartComponent } from '@swimlane/ngx-charts/common/base-chart.compo
       (legendLabelClick)="onClick($event)"
     >
       <svg:g
-        *ngFor="let pie of data; let idx = index; trackBy: trackBy"
+        *ngFor="let pie of data; trackBy: trackBy"
         [attr.transform]="translation"
         class="pie-chart chart"
       >
@@ -39,7 +39,7 @@ import { BaseChartComponent } from '@swimlane/ngx-charts/common/base-chart.compo
           ngx-charts-pie-series
           [colors]="colors"
           [series]="pie.series"
-          [showLabels]="idx === 0 ? labels : null"
+          [showLabels]="pie.isShowLabel"
           [labelFormatting]="labelFormatting"
           [trimLabels]="trimLabels"
           [maxLabelLength]="maxLabelLength"
@@ -123,6 +123,9 @@ export class NestedPieComponent extends BaseChartComponent {
     // sort data according to outerRadius
     this.data = this.results.sort((a, b) => {
       return b.outerRadius - a.outerRadius;
+    });
+    this.data.map((e, i) => {
+      e.isShowLabel = i === 0;
     });
 
     let globalOuterRadius = Math.min(this.dims.width, this.dims.height);
