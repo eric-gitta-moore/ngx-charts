@@ -122,10 +122,10 @@ export class NestedPieComponent extends BaseChartComponent {
 
     // sort data according to outerRadius
     this.data = this.results.sort((a, b) => {
-      return b.outerRadius - a.outerRadius;
+      return a.outerRadius - b.outerRadius;
     });
     this.data.map((e, i) => {
-      e.isShowLabel = i === 0;
+      e.isShowLabel = i === this.data.length - 1;
     });
 
     let globalOuterRadius = Math.min(this.dims.width, this.dims.height);
